@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Programa{
+  programaId Int @id @unique @default(autoincrement())
+  programaNome String
+   URLPrograma String
+  classe Classe @relation(fields: [classeId], references: [classeId])
+  classeId Int
+  @@map("programas")
+}
+
+model Classe{
+  classeId Int @id @unique  @default(autoincrement())
+  classeNome String
+  programa Programa[]
+  @@map("classes")
+}
